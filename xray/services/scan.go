@@ -3,12 +3,14 @@ package services
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/jfrog/jfrog-client-go/utils/log"
-	xrayUtils "github.com/jfrog/jfrog-client-go/xray/services/utils"
 	"net/http"
 	"os"
 	"strings"
 	"time"
+
+	"github.com/davecgh/go-spew/spew"
+	"github.com/jfrog/jfrog-client-go/utils/log"
+	xrayUtils "github.com/jfrog/jfrog-client-go/xray/services/utils"
 
 	"github.com/jfrog/jfrog-client-go/artifactory/services/utils"
 	"github.com/jfrog/jfrog-client-go/auth"
@@ -182,6 +184,16 @@ func (ss *ScanService) GetScanGraphResults(scanId string, includeVulnerabilities
 		if err != nil {
 			return true, nil, err
 		}
+		print("respose:\n")
+		print(spew.Sdump(resp))
+		print("respose Marshal:\n")
+		tmpData, _ := json.Marshal(resp)
+		print(tmpData)
+
+		print("body:\n")
+		print(body)
+		print("\n")
+
 		if err = errorutils.CheckResponseStatusWithBody(resp, body, http.StatusOK, http.StatusAccepted); err != nil {
 			return true, nil, err
 		}
