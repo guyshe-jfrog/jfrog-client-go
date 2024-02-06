@@ -169,15 +169,22 @@ func (ss *ScanService) GetScanGraphResults(scanId string, includeVulnerabilities
 		endPoint = ss.xrayToXscUrl() + XscGraphAPI
 	}
 	endPoint += "/" + scanId
-
-	if includeVulnerabilities {
-		endPoint += includeVulnerabilitiesParam
-		if includeLicenses {
-			endPoint += andIncludeLicensesParam
-		}
-	} else if includeLicenses {
-		endPoint += includeLicensesParam
-	}
+	print("includeVulnerabilities:\n")
+	print(includeVulnerabilities)
+	print("\n")
+	endPoint += includeVulnerabilitiesParam
+	// if includeVulnerabilities {
+	// 	print("yay got includeVulnerabilities\n")
+	// 	endPoint += includeVulnerabilitiesParam
+	// 	if includeLicenses {
+	// 		endPoint += andIncludeLicensesParam
+	// 	}
+	// } else if includeLicenses {
+	// 	endPoint += includeLicensesParam
+	// }
+	print("endPoint:\n")
+	print(endPoint)
+	print("\n")
 	log.Info("Waiting for scan to complete on JFrog Xray...")
 	pollingAction := func() (shouldStop bool, responseBody []byte, err error) {
 		resp, body, _, err := ss.client.SendGet(endPoint, true, &httpClientsDetails)

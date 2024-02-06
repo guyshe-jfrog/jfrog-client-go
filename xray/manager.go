@@ -130,6 +130,8 @@ func (sm *XrayServicesManager) ScanGraph(params services.XrayGraphScanParams) (s
 // The scanId input should be received from ScanGraph request.
 func (sm *XrayServicesManager) GetScanGraphResults(scanID string, includeVulnerabilities, includeLicenses, xscEnabled bool) (*services.ScanResponse, error) {
 	print("Go client debug on\n")
+	print("includeVulnerabilities\n")
+	print(includeVulnerabilities)
 	scanService := services.NewScanService(sm.client)
 	scanService.XrayDetails = sm.config.GetServiceDetails()
 	return scanService.GetScanGraphResults(scanID, includeVulnerabilities, includeLicenses, xscEnabled)
